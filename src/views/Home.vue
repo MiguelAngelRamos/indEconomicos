@@ -31,7 +31,8 @@
         <tbody>
 
           <tr v-for="ind in indicadorInfo.serie" :key="ind.fecha">
-            <td>{{ ind.fecha }}</td>
+            <!-- <td>{{ ind.fecha | fecha }}</td> -->
+            <td>{{ fecha(ind.fecha)}}</td>
             <td>{{ ind.valor }}</td>
           </tr>
 
@@ -72,7 +73,8 @@ export default {
         { codigo: 'bitcoin'},
       ],
       indicador: '',
-      loading: false
+      loading: false,
+      mifecha: ''
     }
   },
   methods: {
@@ -86,6 +88,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    fecha(value) {
+      let f = new Date(value);
+      let fecha = `${f.getDate()}/${f.getMonth() + 1}/${f.getFullYear()}`;
+      return fecha;
     }
   },
   created() {
@@ -99,6 +106,20 @@ export default {
       console.log("estoy en el watch");
       this.getIndicadores();
     }
-  }
+  },
+  // filters: {
+  //   fecha: function(value) {
+  //     let f = new Date(value);
+  //     let fecha = `${f.getDate()}/${f.getMonth() + 1}/${f.getFullYear()}`;
+  //     return fecha;
+  //   }
+  // },
+  // computed: {
+  //   fecha(value) {
+  //     let f = new Date(value);
+  //     let fecha = `${f.getDate()}/${f.getMonth() + 1}/${f.getFullYear()}`;
+  //     return fecha;
+  //   }
+  // }
 };
 </script>
